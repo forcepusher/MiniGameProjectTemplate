@@ -14,11 +14,6 @@ namespace BananaParty.Minigame.Sample
 
         public int MinigamePlayResult => _clickerMinigameCanvas ? _clickerMinigameCanvas.ClickCount : 0;
 
-        public AsyncOperation EndMinigame()
-        {
-            return SceneManager.UnloadSceneAsync(SceneName);
-        }
-
         public AsyncOperation StartMinigame()
         {
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
@@ -32,6 +27,11 @@ namespace BananaParty.Minigame.Sample
                 await Task.Yield();
 
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
+        }
+
+        public AsyncOperation EndMinigame()
+        {
+            return SceneManager.UnloadSceneAsync(SceneName);
         }
     }
 }
