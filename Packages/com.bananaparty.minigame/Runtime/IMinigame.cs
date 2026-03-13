@@ -14,7 +14,7 @@ namespace BananaParty.Minigame
 
         /// <summary>
         /// Use this layer as your default minigame layer to avoid conflicts with the main game scene.<br/>
-        /// Light settings Culling Mask must be enabled only for <see cref="MainMinigameLayer"/> and <see cref="AdditionalMinigameLayer"/> exclusively.
+        /// Camera and Light Culling Masks must be enabled only for <see cref="MainMinigameLayer"/> and <see cref="AdditionalMinigameLayer"/> exclusively.
         /// </summary>
         public int MainMinigameLayer { get => 30; }
 
