@@ -14,7 +14,7 @@ namespace BananaParty.Minigame
         /// </summary>
         public int AdditionalMinigameLayer { get => 31; }
 
-        public AsyncOperation StartMinigame(Camera mainSceneCamera);
+        public AsyncOperation StartMinigame();
 
         public AsyncOperation EndMinigame();
 
