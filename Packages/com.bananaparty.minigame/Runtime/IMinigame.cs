@@ -19,7 +19,9 @@ namespace BananaParty.Minigame
         /// Change the minigame language. Set it before starting the game.
         /// </summary>
         /// <param name="languageCode">ISO 639 Set 1 language code (e.g. "en", "ru", "tr")</param>
-        public void SetLocalization(string languageCode);
+        public void SetLanguage(string languageCode);
+
+        public void SetSoundVolume(float volume);
 
         public AsyncOperation StartMinigame();
 
