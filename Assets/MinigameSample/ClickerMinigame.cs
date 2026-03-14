@@ -33,5 +33,10 @@ namespace BananaParty.Minigame.Sample
         {
             return SceneManager.UnloadSceneAsync(SceneName);
         }
+
+        public void SetVolume(float volume)
+        {
+            
+        }
     }
 }
