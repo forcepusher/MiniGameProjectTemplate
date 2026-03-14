@@ -189,7 +189,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Click 5 times to win
+  m_Text: Click 5 times
 --- !u!222 &329707759
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b9bff8e05cb2c48ab2b05d47a78ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BananaParty.Minigame.Sample.ClickerMinigameCanvas
+  _buttonText: {fileID: 329707758}
 --- !u!1 &1947487480
 GameObject:
   m_ObjectHideFlags: 0

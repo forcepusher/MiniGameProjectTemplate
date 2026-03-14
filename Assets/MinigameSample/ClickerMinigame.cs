@@ -8,6 +8,9 @@ namespace BananaParty.Minigame.Sample
     {
         private const string SceneName = "ClickerMinigameScene";
 
+        private string _languageCode = "en";
+        private float _volume = 1f;
+
         private ClickerMinigameCanvas _clickerMinigameCanvas;
 
         public bool IsMinigameFinished => _clickerMinigameCanvas ? _clickerMinigameCanvas.IsGameFinished : false;
@@ -27,6 +30,8 @@ namespace BananaParty.Minigame.Sample
                 await Task.Yield();
 
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
+            SetSoundVolume(_volume);
+            _clickerMinigameCanvas.SetLanguage(_languageCode);
         }
 
         public AsyncOperation EndMinigame()
@@ -34,9 +39,17 @@ namespace BananaParty.Minigame.Sample
             return SceneManager.UnloadSceneAsync(SceneName);
         }
 
-        public void SetVolume(float volume)
+        public void SetSoundVolume(float volume)
         {
-            
+            _volume = volume;
+
+            foreach (AudioSource audioSource in Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+                audioSource.volume = volume;
+        }
+
+        public void SetLanguage(string languageCode)
+        {
+            _languageCode = languageCode;
         }
     }
 }
