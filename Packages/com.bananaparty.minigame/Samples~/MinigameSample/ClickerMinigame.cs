@@ -17,26 +17,48 @@ namespace BananaParty.Minigame.Sample
 
         public int MinigamePlayResult => _clickerMinigameCanvas ? _clickerMinigameCanvas.ClickCount : 0;
 
-        public AsyncOperation StartMinigame()
+        public MinigameAsyncOperation StartMinigame()
         {
-            AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-            GatherSceneReferencesAfterLoad(loadingOperation);
-            return loadingOperation;
+            MinigameAsyncOperation startAsyncOperation = new();
+            StartMinigameAsync(startAsyncOperation);
+            return startAsyncOperation;
         }
 
-        private async void GatherSceneReferencesAfterLoad(AsyncOperation loadingOperation)
+        private async void StartMinigameAsync(MinigameAsyncOperation startAsyncOperation)
         {
+            AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+            
             while (!loadingOperation.isDone)
                 await Task.Yield();
 
+            // Custom startup code should be here if needed
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
             SetSoundVolume(_volume);
             _clickerMinigameCanvas.SetLanguage(_languageCode);
+            //
+
+            startAsyncOperation.Complete();
         }
 
-        public AsyncOperation EndMinigame()
+        public MinigameAsyncOperation StopMinigame()
         {
-            return SceneManager.UnloadSceneAsync(SceneName);
+            MinigameAsyncOperation stopAsyncOperation = new();
+            StopMinigameAsync(stopAsyncOperation);
+            return stopAsyncOperation;
+        }
+
+        private async void StopMinigameAsync(MinigameAsyncOperation stopAsyncOperation)
+        {
+            AsyncOperation unloadingOperation = SceneManager.UnloadSceneAsync(SceneName);
+
+            // Custom cleanup code should be here if needed
+
+            //
+
+            while (!unloadingOperation.isDone)
+                await Task.Yield();
+
+            stopAsyncOperation.Complete();
         }
 
         public void SetSoundVolume(float volume)
