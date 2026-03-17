@@ -12,6 +12,7 @@ namespace BananaParty.Minigame.Sample
         private float _volume = 1f;
 
         private ClickerMinigameCanvas _clickerMinigameCanvas;
+        private Scene? _minigameScene = null;
 
         public bool IsMinigameFinished => _clickerMinigameCanvas ? _clickerMinigameCanvas.IsGameFinished : false;
 
@@ -30,12 +31,15 @@ namespace BananaParty.Minigame.Sample
             
             while (!loadingOperation.isDone)
                 await Task.Yield();
-
+        
             // Custom startup code should be here if needed
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
-            SetSoundVolume(_volume);
-            _clickerMinigameCanvas.SetLanguage(_languageCode);
             //
+
+            _minigameScene = SceneManager.GetSceneByName(SceneName);
+
+            SetSoundVolume(_volume);
+            SetLanguage(_languageCode);
 
             startAsyncOperation.Complete();
         }
@@ -50,14 +54,15 @@ namespace BananaParty.Minigame.Sample
         private async void StopMinigameAsync(MinigameAsyncOperation stopAsyncOperation)
         {
             AsyncOperation unloadingOperation = SceneManager.UnloadSceneAsync(SceneName);
-
+            _minigameScene = null;
+            
             // Custom cleanup code should be here if needed
 
             //
-
+            
             while (!unloadingOperation.isDone)
                 await Task.Yield();
-
+            
             stopAsyncOperation.Complete();
         }
 
@@ -65,13 +70,22 @@ namespace BananaParty.Minigame.Sample
         {
             _volume = volume;
 
-            foreach (AudioSource audioSource in Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
-                audioSource.volume = volume;
+            if (_minigameScene == null)
+                return;
+
+            foreach (GameObject rootGameObject in _minigameScene.Value.GetRootGameObjects())
+                foreach (AudioSource audioSource in rootGameObject.GetComponentsInChildren<AudioSource>(true))
+                    audioSource.volume = volume;
         }
 
         public void SetLanguage(string languageCode)
         {
             _languageCode = languageCode;
+
+            if (_minigameScene == null)
+                return;
+
+            _clickerMinigameCanvas.SetLanguage(_languageCode);
         }
     }
 }
