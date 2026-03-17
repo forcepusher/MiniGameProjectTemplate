@@ -26,20 +26,17 @@ namespace BananaParty.Minigame.Sample
 
         private async void StartMiniGameAsync(AsyncOperation startAsyncOperation)
         {
-            
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-            GatherSceneReferencesAfterLoad(loadingOperation);
-            return loadingOperation;
-        }
 
-        private async void GatherSceneReferencesAfterLoad(AsyncOperation loadingOperation)
-        {
             while (!loadingOperation.isDone)
                 await Task.Yield();
 
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
             SetSoundVolume(_volume);
+
             _clickerMinigameCanvas.SetLanguage(_languageCode);
+
+            loadingOperation.complete();
         }
 
         public AsyncOperation EndMinigame()
