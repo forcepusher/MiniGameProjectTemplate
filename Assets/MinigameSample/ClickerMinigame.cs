@@ -19,9 +19,9 @@ namespace BananaParty.Minigame.Sample
 
         public MinigameAsyncOperation StartMinigame()
         {
-            MinigameAsyncOperation minigameAsyncOperation = new();
-            StartMinigameAsync(minigameAsyncOperation);
-            return minigameAsyncOperation;
+            MinigameAsyncOperation startAsyncOperation = new();
+            StartMinigameAsync(startAsyncOperation);
+            return startAsyncOperation;
         }
 
         private async void StartMinigameAsync(MinigameAsyncOperation startAsyncOperation)
@@ -42,9 +42,9 @@ namespace BananaParty.Minigame.Sample
 
         public MinigameAsyncOperation StopMinigame()
         {
-            MinigameAsyncOperation minigameAsyncOperation = new();
-            StopMinigameAsync(minigameAsyncOperation);
-            return minigameAsyncOperation;
+            MinigameAsyncOperation stopAsyncOperation = new();
+            StopMinigameAsync(stopAsyncOperation);
+            return stopAsyncOperation;
         }
 
         private async void StopMinigameAsync(MinigameAsyncOperation stopAsyncOperation)
