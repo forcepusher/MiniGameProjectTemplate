@@ -31,10 +31,11 @@ namespace BananaParty.Minigame.Sample
             while (!loadingOperation.isDone)
                 await Task.Yield();
 
+            // Custom startup code should be here if needed
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
             SetSoundVolume(_volume);
-
             _clickerMinigameCanvas.SetLanguage(_languageCode);
+            //
 
             startAsyncOperation.Complete();
         }
@@ -50,7 +51,9 @@ namespace BananaParty.Minigame.Sample
         {
             AsyncOperation unloadingOperation = SceneManager.UnloadSceneAsync(SceneName);
 
-            // Some custom cleanup code if needed
+            // Custom cleanup code should be here if needed
+
+            //
 
             while (!unloadingOperation.isDone)
                 await Task.Yield();

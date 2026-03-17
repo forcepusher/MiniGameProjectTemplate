@@ -24,7 +24,7 @@ namespace BananaParty.Minigame
         public int AdditionalMinigameLayer { get => 31; }
 
         /// <summary>
-        /// Change the minigame language. Set it before starting the game.
+        /// Change the minigame language.
         /// </summary>
         /// <param name="languageCode">ISO 639 Set 1 language code (e.g. "en", "ru", "tr")</param>
         public void SetLanguage(string languageCode) {}
