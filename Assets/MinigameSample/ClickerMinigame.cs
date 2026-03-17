@@ -17,17 +17,17 @@ namespace BananaParty.Minigame.Sample
 
         public int MinigamePlayResult => _clickerMinigameCanvas ? _clickerMinigameCanvas.ClickCount : 0;
 
-        public AsyncOperation StartMinigame()
+        public MinigameAsyncOperation StartMinigame()
         {
-            AsyncOperation startAsyncOperation = new();
-            StartMiniGameAsync(startAsyncOperation);
-            return startAsyncOperation;
+            MinigameAsyncOperation minigameAsyncOperation = new();
+            StartMinigameAsync(minigameAsyncOperation);
+            return minigameAsyncOperation;
         }
 
-        private async void StartMiniGameAsync(AsyncOperation startAsyncOperation)
+        private async void StartMinigameAsync(MinigameAsyncOperation startAsyncOperation)
         {
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-
+            
             while (!loadingOperation.isDone)
                 await Task.Yield();
 
@@ -36,12 +36,26 @@ namespace BananaParty.Minigame.Sample
 
             _clickerMinigameCanvas.SetLanguage(_languageCode);
 
-            loadingOperation.complete();
+            startAsyncOperation.Complete();
         }
 
-        public AsyncOperation EndMinigame()
+        public MinigameAsyncOperation StopMinigame()
         {
-            return SceneManager.UnloadSceneAsync(SceneName);
+            MinigameAsyncOperation minigameAsyncOperation = new();
+            StopMinigameAsync(minigameAsyncOperation);
+            return minigameAsyncOperation;
+        }
+
+        private async void StopMinigameAsync(MinigameAsyncOperation stopAsyncOperation)
+        {
+            AsyncOperation unloadingOperation = SceneManager.UnloadSceneAsync(SceneName);
+
+            // Some custom cleanup code if needed
+
+            while (!unloadingOperation.isDone)
+                await Task.Yield();
+
+            stopAsyncOperation.Complete();
         }
 
         public void SetSoundVolume(float volume)

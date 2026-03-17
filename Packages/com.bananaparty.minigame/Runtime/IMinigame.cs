@@ -4,11 +4,11 @@ namespace BananaParty.Minigame
 {
     public interface IMinigame<TPlayResult>
     {
-        public AsyncOperation StartMinigame();
+        public MinigameAsyncOperation StartMinigame();
 
         public bool IsMinigameFinished { get; }
 
-        public AsyncOperation EndMinigame();
+        public MinigameAsyncOperation StopMinigame();
 
         public TPlayResult MinigamePlayResult { get; }
 
